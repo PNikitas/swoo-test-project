@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, Provider } from 'react-redux';
+import { FcCounterWrapper, FcButton, FcCounter } from './components';
+import { store, increaseValue, decreaseValue } from './store';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const dispatch = useDispatch();
 
-export default App;
+    return (
+        <FcCounterWrapper>
+            <FcButton title='-1' onClick={() => dispatch(decreaseValue())} />
+            <FcCounter />
+            <FcButton title='+1' onClick={() => dispatch(increaseValue())} />
+        </FcCounterWrapper>
+    );
+};
+
+const WrappedApp = () => (
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
+
+export default WrappedApp;
